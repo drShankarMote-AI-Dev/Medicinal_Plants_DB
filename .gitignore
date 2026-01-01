@@ -37,6 +37,7 @@ instance/*
 # Configuration files (may contain sensitive data)
 config/*
 !config/.gitkeep
+config/secret_key.txt
 
 # IDE
 .vscode/

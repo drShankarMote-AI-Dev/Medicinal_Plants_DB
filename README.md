@@ -1,6 +1,26 @@
-# Medicinal Plants Database
+# 🌿 Medicinal Plants Database
+
+[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-2.3.3-green.svg)](https://flask.palletsprojects.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![SQLite](https://img.shields.io/badge/SQLite-3-lightgrey.svg)](https://www.sqlite.org/)
 
 A modern, accessible web application that provides comprehensive information about various medicinal plants, their therapeutic uses, preparation methods, and safety guidelines.
+
+## 📑 Table of Contents
+
+- [Features](#-features)
+- [Technologies Used](#️-technologies-used)
+- [Prerequisites](#-prerequisites)
+- [Getting Started](#-getting-started)
+- [Docker Deployment](#-docker-deployment)
+- [Project Structure](#-project-structure)
+- [Admin Panel](#-admin-panel)
+- [Configuration](#-configuration)
+- [Development](#-development)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Support](#-support)
 
 ## 🌿 Features
 
@@ -31,14 +51,38 @@ A modern, accessible web application that provides comprehensive information abo
 - pip (Python package manager)
 - (Optional) Docker and Docker Compose for containerized deployment
 
+## ⚡ Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/Medicinal_Plants_DB.git
+cd Medicinal_Plants_DB
+
+# Create and activate virtual environment
+python -m venv venv
+venv\Scripts\activate  # Windows
+# source venv/bin/activate  # macOS/Linux
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Initialize database (optional)
+python seed_data.py
+
+# Run the application
+python app.py
+```
+
+Visit `http://127.0.0.1:5000` in your browser. Default admin credentials: `admin` / `admin123`
+
 ## 🚀 Getting Started
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/medicinal-plants-db.git
-   cd medicinal-plants-db
+   git clone https://github.com/YOUR_USERNAME/Medicinal_Plants_DB.git
+   cd Medicinal_Plants_DB
    ```
 
 2. **Create a virtual environment** (recommended)
@@ -117,13 +161,16 @@ medicinal-plants-db/
 │   ├── css/                    # Stylesheets
 │   │   ├── styles.css          # Main styles
 │   │   ├── admin.css           # Admin panel styles
-│   │   ├── admin_new.css       # New admin styles
-│   │   └── ...                 # Other CSS files
+│   │   ├── home.css            # Home page styles
+│   │   ├── plants.css          # Plants page styles
+│   │   ├── search.css          # Search page styles
+│   │   └── stats.css           # Statistics styles
 │   ├── js/                     # JavaScript files
 │   │   ├── app.js              # Main application JS
 │   │   ├── admin.js            # Admin panel JS
-│   │   ├── admin_new.js        # New admin JS
-│   │   └── ...                 # Other JS files
+│   │   ├── search.js           # Search functionality
+│   │   ├── search-advanced.js  # Advanced search features
+│   │   └── growth-analytics.js # Analytics and charts
 │   ├── images/                 # Image assets
 │   │   ├── uploads/            # User-uploaded images
 │   │   └── ...                 # Plant images
@@ -252,6 +299,21 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 📞 Support
 
 For issues, questions, or contributions, please open an issue on the GitHub repository.
+
+## ⚠️ Important Notes
+
+- **Security**: Change the default admin credentials (`admin` / `admin123`) immediately after installation!
+- **Secret Key**: Update the `SECRET_KEY` in production environments. Never commit sensitive keys to version control.
+- **Database**: The SQLite database is stored in the `instance/` directory and is gitignored by default.
+- **Configuration**: Sensitive configuration files in `config/` are gitignored. Create them locally as needed.
+
+## 🚨 Security Best Practices
+
+1. **Change Default Credentials**: Always change default admin credentials before deploying
+2. **Use Environment Variables**: Store sensitive data (SECRET_KEY, passwords) in environment variables
+3. **HTTPS in Production**: Always use HTTPS in production environments
+4. **Regular Updates**: Keep dependencies updated for security patches
+5. **Database Backups**: Regularly backup your database files
 
 ---
 
