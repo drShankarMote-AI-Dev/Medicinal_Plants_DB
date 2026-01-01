@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Explore a comprehensive database of medicinal plants, their therapeutic uses, preparation methods, and safety guidelines.">
+    <meta name="keywords"
+        content="medicinal plants, herbal medicine, natural remedies, plant database, Ayurveda, herbs">
+    <meta name="author" content="Medicinal Plants Database">
+    <meta name="theme-color" content="#2e7d32">
+    <title>{% block title %}Medicinal Plants DB{% endblock %}</title>
+
+    <!-- Favicon -->
+
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Stylesheets -->
+    {% block styles %}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stats.css') }}">
+    {% endblock %}
+</head>
+
+<body>
+    <div id="flashed-messages" style="display:none;">{{ flashed_messages_json | safe }}</div>
+
+    <header>
+        <nav class="navbar" role="navigation" aria-label="Main Navigation">
+            <div class="nav-title">
+                <i class="fas fa-leaf" aria-hidden="true"></i>
+                <span>Medicinal Plants Database</span>
+            </div>
+
+            <div class="theme-controls">
+                <label class="switch" title="Toggle dark and light mode">
+                    <input type="checkbox" id="theme-toggle" aria-label="Switch between dark and light mode">
+                    <span class="slider"><span class="icon">🌙</span></span>
+                </label>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="nav-menu"
+                aria-label="Toggle navigation menu">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+
+            <ul id="nav-menu" class="nav-links">
+                <li><a href="{{ url_for('index') }}"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle" aria-hidden="true"></i> About</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
+                <li><a href="{{ url_for('plants_page') }}"><i class="fas fa-seedling" aria-hidden="true"></i> Plants</a>
+                </li>
+                <li><a href="{{ url_for('search_page') }}"><i class="fas fa-search" aria-hidden="true"></i> Search</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section class="hero-section" id="home-hero">
+            <div class="hero-content">
+                <h1 class="hero-title"><i class="fas fa-leaf" aria-hidden="true"></i> Discover Nature's Healing Power
+                </h1>
+                <p class="hero-subtitle">Explore our comprehensive database of medicinal plants and unlock the secrets
+                    of natural healing traditions from around the world.</p>
+                <div class="hero-search">
+                    <form class="search-form" id="heroSearchForm">
+                        <div class="search-input-group">
+                            <input type="search" name="q" id="heroSearch" placeholder="Search for plants..."
+                                aria-label="Search for plants">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="hero-buttons">
+                    <a href="{{ url_for('plants_page') }}" class="btn btn-outline-light" id="exploreButton"><i
+                            class="fas fa-seedling"></i> Browse All Plants</a>
+                    <a href="{{ url_for('search_page') }}" class="btn btn-outline-light"><i class="fas fa-search"></i>
+                        Advanced Search</a>
+                    <a href="#featured" class="btn btn-success"><i class="fas fa-star"></i> Featured Plants</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section" id="home-stats">
+            <div class="section-container">
+                <div class="dashboard-metrics">
+                    <div class="metric-card plants animate-fadeInUp">
+                        <div class="icon plants-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="info">
+                            <h3>Total Plants</h3>
+                            <p id="totalPlantsValue">0</p>
+                        </div>
+                    </div>
+                    <div class="metric-card users animate-fadeInUp" style="animation-delay: 0.2s;">
+                        <div class="icon users-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="info">
+                            <h3>Total Users</h3>
+                            <p id="totalUsersValue">0</p>
+                        </div>
+                    </div>
+                    <div class="metric-card visits animate-fadeInUp" style="animation-delay: 0.4s;">
+                        <div class="icon visits-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="info">
+                            <h3>Last 7 Days</h3>
+                            <p id="last7DaysCount">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-charts d-grid"
+                    style="grid-template-columns: 2fr 1fr; gap: 1.5rem; align-items:start;">
+                    <div class="stats-card animate-fadeInUp" style="animation-delay: 0.6s;">
+                        <h3><i class="fas fa-wave-square"></i> Growth Trend</h3>
+                        <canvas id="plantTrendChart" height="120"></canvas>
+                    </div>
+                    <div class="stats-card animate-fadeInUp" style="animation-delay: 0.8s;">
+                        <h3><i class="fas fa-clock"></i> Latest Additions</h3>
+                        <ul id="recentPlantsList"></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories-section">
+            <div class="section-container">
+                <div class="section-title">
+                    <h2>Explore by Category</h2>
+                    <p>Browse medicinal plants organized by their primary therapeutic uses and properties</p>
+                </div>
+                <div class="categories-grid">
+                    <a href="{{ url_for('plants_page') }}?category=immune" class="category-card">
+                        <div class="category-icon immune-icon">
+                            <i class="fas fa-shield-virus"></i>
+                        </div>
+                        <h3>Immune Support</h3>
+                        <p>Plants that boost and maintain immune system health</p>
+                    </a>
+                    <a href="{{ url_for('plants_page') }}?category=digestive" class="category-card">
+                        <div class="category-icon digestive-icon">
+                            <i class="fas fa-apple-alt"></i>
+                        </div>
+                        <h3>Digestive Health</h3>
+                        <p>Natural remedies for digestive system wellness</p>
+                    </a>
+                    <a href="{{ url_for('plants_page') }}?category=respiratory" class="category-card">
+                        <div class="category-icon respiratory-icon">
+                            <i class="fas fa-lungs"></i>
+                        </div>
+                        <h3>Respiratory Care</h3>
+                        <p>Plants supporting respiratory system health</p>
+                    </a>
+                    <a href="{{ url_for('plants_page') }}?category=stress" class="category-card">
+                        <div class="category-icon stress-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <h3>Stress & Sleep</h3>
+                        <p>Natural aids for relaxation and better sleep</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-section" id="featured">
+            <div class="section-container">
+                <div class="featured-title">
+                    <span class="section-badge">Featured Collection</span>
+                    <h2>Popular Medicinal Plants</h2>
+                    <p>Discover our most sought-after healing plants, carefully selected by experts</p>
+                </div>
+
+                <div class="featured-grid">
+                    {% for plant in featured_plants %}
+                    <div class="featured-card" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 100 }}">
+                        <div class="featured-image">
+                            <img src="{{ plant['image_url'] }}" alt="{{ plant['common_name'] }}" loading="lazy">
+                            <div class="featured-overlay">
+                                <span class="featured-badge"><i class="fas fa-award"></i> Featured</span>
+                            </div>
+                        </div>
+                        <div class="featured-content">
+                            <div class="plant-category">
+                                <i class="fas fa-leaf"></i> {{ plant.get('category', 'Medicinal') }}
+                            </div>
+                            <h3>{{ plant['common_name'] }}</h3>
+                            <p>{{ plant['description'][:100] }}...</p>
+                            <div class="featured-footer">
+                                <a href="{{ url_for('plant_details', plant_id=plant['id']) }}" class="btn btn-outline">
+                                    Learn More <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="why-us-section">
+            <div class="section-container">
+                <div class="why-us-title">
+                    <span class="section-badge">Why Choose Us</span>
+                    <h2>The Most Trusted Plant Database</h2>
+                    <p>Discover what makes our medicinal plants database the most comprehensive and reliable resource.
+                    </p>
+                </div>
+
+                <div class="why-us-grid">
+                    <div class="feature-card" data-aos="fade-up">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Verified Information</h3>
+                        <p>All plant information is thoroughly researched and verified by experts in the field.</p>
+                        <div class="feature-footer">
+                            <a href="#about" class="btn-text">Learn More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Comprehensive Database</h3>
+                        <p>Access detailed information about hundreds of medicinal plants from around the world.</p>
+                        <div class="feature-footer">
+                            <a href="{{ url_for('plants_page') }}" class="btn-text">Browse Plants <i
+                                    class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Safety First</h3>
+                        <p>Clear guidelines and precautions for safe usage of medicinal plants.</p>
+                        <div class="feature-footer">
+                            <a href="#safety" class="btn-text">Safety Tips <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3>Regular Updates</h3>
+                        <p>Our database is continuously updated with new plants and latest research.</p>
+                        <div class="feature-footer">
+                            <a href="#updates" class="btn-text">Latest Updates <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials-section">
+            <div class="section-container">
+                <div class="testimonials-title">
+                    <span class="section-badge">Testimonials</span>
+                    <h2>What Our Users Say</h2>
+                    <p>Read what researchers, herbalists, and plant enthusiasts think about our database</p>
+                </div>
+
+                <div class="testimonials-grid">
+                    <div class="testimonial-card" data-aos="fade-up">
+                        <div class="testimonial-content">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p>"This database has been an invaluable resource for my research on traditional medicine.
+                                The detailed information and scientific references are exceptional."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Dr. Sarah Johnson</h4>
+                                <p>Ethnobotanist</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="testimonial-content">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p>"The safety information and preparation methods are clearly presented. It's exactly what
+                                I needed for my herbal medicine practice."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Michael Chen</h4>
+                                <p>Herbalist</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="testimonial-content">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p>"As a student of traditional medicine, this database has been a game-changer. The
+                                interface is intuitive and the content is comprehensive."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Emily Rodriguez</h4>
+                                <p>Medical Student</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section content-section">
+            <div class="section-container">
+                <h2><i class="fas fa-info-circle" aria-hidden="true"></i> About</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Welcome to the Medicinal Plants Database! This comprehensive resource is dedicated to
+                            providing reliable information on medicinal plants, their therapeutic applications,
+                            preparation methods, and important safety guidelines.</p>
+                        <p>Our mission is to help you explore the rich world of natural remedies while promoting safe
+                            and informed use of medicinal plants. Whether you're a practitioner, student, or enthusiast,
+                            our database offers valuable insights into nature's pharmacy.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="{{ url_for('static', filename='images/about.jpg') }}"
+                            alt="Collection of medicinal herbs and plants" loading="lazy" width="400" height="300">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section content-section">
+            <div class="section-container">
+                <h2><i class="fas fa-envelope" aria-hidden="true"></i> Contact</h2>
+                <div class="contact-flex">
+                    <div class="contact-info">
+                        <p>We'd love to hear from you! Feel free to reach out with any questions, suggestions, or
+                            feedback about our medicinal plants database.</p>
+                        <ul class="contact-details">
+                            <li>
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                                <span>Email:</span>
+                                <a href="mailto:info@medicinalplantsdb.com">info@medicinalplantsdb.com</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-phone" aria-hidden="true"></i>
+                                <span>Phone:</span>
+                                <a href="tel:+18005557526">+1-800-555-PLANT</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                                <span>Address:</span>
+                                <address>123 Herbal Lane, Green City, Natureland</address>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <form class="contact-form" aria-label="Contact form" autocomplete="off" novalidate>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required
+                                aria-required="true" autocomplete="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required
+                                aria-required="true" autocomplete="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" placeholder="Your Message" rows="4" required
+                                aria-required="true"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-paper-plane" aria-hidden="true"></i> Send Message
+                        </button>
+
+                        <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-branding">
+                <i class="fas fa-leaf" aria-hidden="true"></i>
+                <span>Medicinal Plants Database</span>
+            </div>
+
+            <p class="copyright">&copy; 2025 All Rights Reserved</p>
+
+            <div class="footer-disclaimer">
+                <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                <span>Disclaimer: Information provided is for educational purposes only, not for medical diagnosis or
+                    treatment.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Template for plant cards (hidden) -->
+    <template id="plant-card-template">
+        <article class="plant-card" tabindex="0">
+            <div class="plant-image-container">
+                <img class="plant-image" src="" alt="">
+            </div>
+            <div class="card-content">
+                <h3 class="plant-name"></h3>
+                <div class="sci-name"></div>
+                <div class="plant-details">
+                    <!-- Details will be filled by JavaScript -->
+                </div>
+            </div>
+        </article>
+    </template>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"
+        integrity="sha384-WYVgK/6ZVvDt0qLFZ7HUVJHzm2m8mE6eIu0GxY8dO2v+U7R6gqZ3wM6jzTGHw8qI"
+        crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}?v=4"></script>
+    <script>
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchForm = document.getElementById('heroSearchForm');
+            const searchInput = document.getElementById('heroSearch');
+
+            if (searchForm && searchInput) {
+                searchForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        window.location.href = "{{ url_for('search_page') }}?q=" + encodeURIComponent(query);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

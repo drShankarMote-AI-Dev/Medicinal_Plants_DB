@@ -1,0 +1,105 @@
+.stats-charts {
+    margin-top: var(--spacing-xl);
+}
+
+.stats-card {
+    background: var(--color-background);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+    border: 1px solid var(--color-gray-200);
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+
+.stats-card h3 {
+    font-size: 1.25rem;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.stats-card h3 i {
+    color: var(--color-primary);
+}
+
+#recentPlantsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+#recentPlantsList li {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-md);
+    background: var(--color-gray-50);
+    transition: background-color var(--transition-fast);
+}
+
+#recentPlantsList li:hover {
+    background: var(--color-gray-100);
+}
+
+#recentPlantsList .plant-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-light);
+    color: white;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+#recentPlantsList .plant-info {
+    flex-grow: 1;
+}
+
+#recentPlantsList .plant-name {
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 2px;
+}
+
+#recentPlantsList .plant-date {
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+}
+
+/* Dark mode adjustments */
+body.dark .stats-card {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+}
+
+body.dark #recentPlantsList li {
+    background: var(--color-gray-700);
+}
+
+body.dark #recentPlantsList li:hover {
+    background: var(--color-gray-600);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .stats-charts {
+        grid-template-columns: 1fr !important;
+    }
+}
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}   

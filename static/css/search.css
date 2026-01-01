@@ -1,0 +1,995 @@
+/* Search Page Styles - Enhanced Design */
+
+/* Enhanced Color Variables */
+:root {
+    --search-bg: var(--color-background);
+    --search-card-bg: var(--color-background);
+    --search-text: var(--color-text);
+    --search-primary: var(--color-primary);
+    --search-border: var(--color-gray-200);
+    --search-accent: #4caf50;
+    --search-gradient-start: rgba(76, 175, 80, 0.15);
+    --search-gradient-end: rgba(46, 125, 50, 0.05);
+}
+
+/* Dark mode overrides */
+body.dark {
+    --search-bg: var(--color-background);
+    --search-card-bg: var(--color-gray-800);
+    --search-text: var(--color-text);
+    --search-primary: var(--color-primary);
+    --search-border: var(--color-gray-700);
+    --search-gradient-start: rgba(76, 175, 80, 0.1);
+    --search-gradient-end: rgba(46, 125, 50, 0.03);
+}
+
+/* Smooth Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.results-grid .plant-card.fade-in {
+    animation: scaleIn 0.4s ease-out forwards;
+}
+
+/* Hero Section Overrides (if needed) */
+#search-hero {
+    min-height: 100vh;
+    margin-bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+/* Override hero-content for left alignment */
+#search-hero .hero-content {
+    max-width: 500px;
+    margin: 0;
+    text-align: left;
+    flex-shrink: 0;
+    animation: fadeInUp 0.6s ease-out;
+    max-height: 84vh;
+    overflow-y: auto;
+}
+
+/* Custom Scrollbar for hero-content */
+#search-hero .hero-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+#search-hero .hero-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#search-hero .hero-content::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+}
+
+#search-hero .hero-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(76, 175, 80, 0.5);
+}
+
+body.dark #search-hero .hero-content::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+body.dark #search-hero .hero-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(76, 175, 80, 0.4);
+}
+
+#search-hero .hero-title {
+    text-align: left;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 0.8s ease-out;
+    transition: opacity 0.2s ease;
+}
+
+#search-hero .hero-title i {
+    color: var(--search-accent);
+    filter: drop-shadow(0 0 10px rgba(76, 175, 80, 0.5));
+}
+
+#search-hero .hero-subtitle {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+    animation: fadeInUp 1s ease-out;
+    transition: opacity 0.2s ease;
+}
+
+#search-hero .search-input-group {
+    margin: 0;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+#search-hero .search-input-group:hover {
+    transform: translateY(-2px);
+}
+
+#search-hero .search-input-group input {
+    transition: all 0.3s ease;
+}
+
+#search-hero .search-input-group input:focus {
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.2), 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+#search-hero .search-input-group .btn {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#search-hero .search-input-group .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+#search-hero .search-input-group .btn:active {
+    transform: scale(0.98);
+}
+
+#search-hero .hero-filters {
+    justify-content: flex-start !important;
+    animation: fadeInUp 1.2s ease-out;
+}
+
+#search-hero .hero-filters select {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+#search-hero .hero-filters select:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Search Results Box on Right Side */
+.search-results-box {
+    flex: 1;
+    max-width: 950px;
+    background: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+    border-radius: var(--border-radius-lg, 20px);
+    padding: 1.rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    height: 84vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideInRight 0.6s ease-out;
+    position: relative;
+}
+
+.search-results-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent,
+            var(--search-accent),
+            transparent);
+    opacity: 0.6;
+}
+
+.results-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 30px;
+}
+
+.results-header h3 {
+    display: none;
+    /* Ensure h3 is hidden if present */
+}
+
+.results-count {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    margin: 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    width: 100%;
+    justify-content: center;
+}
+
+.results-count i {
+    color: var(--search-accent);
+}
+
+.results-grid {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    grid-auto-rows: auto;
+}
+
+/* Custom Scrollbar for Results Grid */
+.results-grid::-webkit-scrollbar {
+    width: 10px;
+}
+
+.results-grid::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}
+
+.results-grid::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+}
+
+.results-grid::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(76, 175, 80, 0.6), rgba(76, 175, 80, 0.4));
+}
+
+body.dark .results-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body.dark .results-grid::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+body.dark .results-grid::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(76, 175, 80, 0.5), rgba(76, 175, 80, 0.3));
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--color-text-light);
+    animation: fadeInUp 0.6s ease-out;
+    grid-column: 1 / -1;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.6;
+    color: var(--color-primary);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 300px;
+}
+
+/* Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--color-text-light);
+    grid-column: 1 / -1;
+}
+
+.loading-state i {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-primary);
+    animation: spin 1s linear infinite;
+}
+
+.loading-state p {
+    margin: 0;
+    font-size: 1.1rem;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Plant Cards in Results Grid */
+.results-grid .plant-card {
+    background: var(--color-background);
+    border-radius: var(--border-radius-lg, 16px);
+    box-shadow: var(--shadow-md, 0 2px 8px rgba(0, 0, 0, 0.1));
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--color-gray-200);
+}
+
+body.dark .results-grid .plant-card {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.results-grid .plant-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(76, 175, 80, 0.1),
+            transparent);
+    transition: left 0.5s ease;
+    z-index: 0;
+}
+
+.results-grid .plant-card:hover::before {
+    left: 100%;
+}
+
+.results-grid .plant-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl, 0 8px 24px rgba(0, 0, 0, 0.15));
+    border-color: var(--search-accent);
+}
+
+.results-grid .plant-card .plant-image-container {
+    height: 180px;
+    overflow: hidden;
+    background: var(--color-gray-100);
+    position: relative;
+    z-index: 1;
+}
+
+body.dark .results-grid .plant-card .plant-image-container {
+    background: var(--color-gray-700);
+}
+
+.results-grid .plant-card .plant-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.results-grid .plant-card:hover .plant-image {
+    transform: scale(1.05);
+}
+
+.results-grid .plant-card .card-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.results-grid .plant-card .plant-name {
+    color: var(--color-text);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.results-grid .plant-card .plant-name i {
+    color: #8bc34a;
+}
+
+.results-grid .plant-card .sci-name {
+    color: var(--color-text-light);
+    font-size: 0.85rem;
+    margin: 0;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-gray-200);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-style: italic;
+}
+
+body.dark .results-grid .plant-card .sci-name {
+    border-bottom-color: var(--color-gray-700);
+}
+
+.results-grid .plant-card .sci-name i {
+    color: #9c27b0;
+    font-size: 0.9em;
+}
+
+.results-grid .plant-card .plant-details {
+    color: var(--color-text);
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.results-grid .plant-card .info {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    line-height: 1.4;
+}
+
+.results-grid .plant-card .label {
+    color: var(--color-primary, #4caf50);
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.results-grid .plant-card .label i {
+    font-size: 0.9em;
+}
+
+/* Colorful icons in search cards */
+.results-grid .plant-card .label i.fa-capsules {
+    color: #e91e63;
+}
+
+.results-grid .plant-card .label i.fa-info-circle {
+    color: #2196f3;
+}
+
+.results-grid .plant-card .label i.fa-globe-asia {
+    color: #4caf50;
+}
+
+.results-grid .plant-card .label i.fa-leaf {
+    color: #8bc34a;
+}
+
+.results-grid .plant-card .label i.fa-flask {
+    color: #9c27b0;
+}
+
+.results-grid .plant-card .label i.fa-mortar-pestle {
+    color: #ff9800;
+}
+
+.results-grid .plant-card .label i.fa-exclamation-triangle {
+    color: #f44336;
+}
+
+.results-grid .plant-card .label i.fa-globe {
+    color: #009688;
+}
+
+/* Expanded Card View */
+.results-grid .plant-card.expanded {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+    padding: 1.5rem;
+    background: var(--color-background);
+    border: 2px solid var(--color-primary);
+}
+
+body.dark .results-grid .plant-card.expanded {
+    background: var(--color-gray-800);
+    border-color: var(--color-primary-light);
+}
+
+.results-grid .plant-card.expanded .plant-image-container {
+    height: auto;
+    min-height: 250px;
+    border-radius: 12px;
+    overflow: hidden;
+    grid-row: 1 / 3;
+}
+
+.results-grid .plant-card.expanded .card-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 0;
+    align-content: start;
+}
+
+.results-grid .plant-card.expanded .plant-details {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.results-grid .plant-card.expanded .info {
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    border-left: 3px solid var(--color-primary);
+}
+
+body.dark .results-grid .plant-card.expanded .info {
+    background: rgba(255, 255, 255, 0.05);
+    border-left-color: var(--color-primary-light);
+}
+
+.results-grid .plant-card.expanded .plant-name {
+    grid-column: 1 / -1;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.results-grid .plant-card.expanded .sci-name {
+    grid-column: 1 / -1;
+    margin-bottom: 1rem;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* Collapse Button */
+.plant-card .expand-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    z-index: 15;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.plant-card:hover .expand-btn {
+    opacity: 1;
+}
+
+.plant-card .expand-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.plant-card.expanded .expand-btn {
+    opacity: 1;
+    background: var(--danger, #ef4444);
+}
+
+.plant-card.expanded .expand-btn:hover {
+    background: var(--danger, #dc2626);
+}
+
+/* Search Suggestions in Hero */
+.search-input-group {
+    position: relative;
+    /* For absolute positioning of suggestions */
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    margin-top: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    overflow: hidden;
+    display: none;
+    text-align: left;
+    transition: opacity 0.2s;
+    max-height: 320px;
+    overflow-y: auto;
+}
+.suggestion-item {
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #333;
+    background: none;
+    border: none;
+    outline: none;
+    transition: background 0.15s, color 0.15s;
+}
+.suggestion-item:hover,
+.suggestion-item.active,
+.suggestion-item:focus {
+    background: rgba(46,125,50,0.08);
+    color: var(--search-primary);
+}
+.suggestion-item.disabled {
+    color: #bdbdbd;
+    background: none;
+    cursor: not-allowed;
+}
+body.dark .search-suggestions {
+    background: var(--color-gray-900, #222);
+    border-color: var(--color-gray-700, #444);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.33);
+}
+body.dark .suggestion-item {
+    color: #eee;
+}
+body.dark .suggestion-item:hover,
+body.dark .suggestion-item.active,
+body.dark .suggestion-item:focus {
+    background: rgba(76,175,80,0.13);
+    color: #b2ff59;
+}
+body.dark .suggestion-item.disabled {
+    color: #555;
+    background: none !important;
+}
+
+/* Results Section */
+.search-results-section {
+    background: var(--search-bg);
+    min-height: 40vh;
+    padding-bottom: 4rem;
+}
+
+/* Highlighting */
+.highlight {
+    background-color: rgba(46, 125, 50, 0.2);
+    color: var(--search-primary);
+    padding: 0 2px;
+    border-radius: 2px;
+    font-weight: 600;
+}
+
+/* Active Filters */
+.search-active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+}
+
+.filter-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    background: rgba(46, 125, 50, 0.1);
+    color: var(--search-primary);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid var(--search-primary);
+}
+
+.filter-pill .remove-filter {
+    background: none;
+    border: none;
+    color: currentColor;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Loading State */
+.loading-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem;
+    color: var(--color-text-light);
+}
+
+.loading-state .spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 1rem;
+    border: 3px solid var(--search-border);
+    border-top-color: var(--search-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+}
+
+.page-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    background: var(--search-card-bg);
+    border: 1px solid var(--search-border);
+    color: var(--search-text);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.page-link:hover,
+.page-link.active {
+    background: var(--search-primary);
+    color: white;
+    border-color: var(--search-primary);
+}
+
+/* Footer Styles */
+footer {
+    background: var(--search-card-bg);
+    border-top: 1px solid var(--search-border);
+    padding: 2rem 0;
+    margin-top: auto;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+.footer-branding {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--search-primary);
+}
+
+.copyright {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.footer-disclaimer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    background: rgba(245, 158, 11, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+}
+
+.footer-disclaimer i {
+    color: #f59e0b;
+}
+
+/* Responsive */
+@media (max-width: 1400px) {
+    .results-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .search-sidebar {
+        width: 100%;
+        position: static;
+        max-height: none;
+    }
+
+    .filter-options {
+        max-height: 200px;
+    }
+
+    #search-hero {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    #search-hero .hero-content {
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .search-results-box {
+        max-width: 100%;
+        max-height: 500px;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .results-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .results-grid .plant-card .plant-image-container {
+        height: 150px;
+    }
+
+    .results-grid .plant-card .card-content {
+        padding: 0.75rem;
+    }
+
+    .results-grid .plant-card .plant-name {
+        font-size: 1rem;
+    }
+
+    .results-grid .plant-card .plant-details {
+        font-size: 0.8rem;
+    }
+
+    /* Expanded card on mobile */
+    .results-grid .plant-card.expanded {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .results-grid .plant-card.expanded .plant-image-container {
+        grid-row: auto;
+        height: 200px;
+        min-height: 200px;
+    }
+
+    .results-grid .plant-card.expanded .card-content {
+        grid-template-columns: 1fr;
+    }
+
+    .results-grid .plant-card.expanded .plant-details {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Sort Filter Dropdown Styling */
+.form-select {
+    background: transparent !important;
+    color: var(--color-text) !important;
+}
+
+.form-select option {
+    background: var(--color-background) !important;
+    color: var(--color-text) !important;
+}
+
+body.dark .form-select {
+    background: transparent !important;
+    color: white !important;
+}
+
+body.dark .form-select option {
+    background: var(--color-gray-800) !important;
+    color: white !important;
+}
+
+/* Clear All Filters Button */
+#clearFilters {
+    background: transparent !important;
+    border: 2px solid var(--color-primary) !important;
+    color: var(--color-primary) !important;
+    transition: all 0.3s ease !important;
+}
+
+#clearFilters:hover {
+    background: var(--color-primary) !important;
+    color: white !important;
+}
+
+body.dark #clearFilters {
+    border-color: var(--color-primary-light) !important;
+    color: var(--color-primary-light) !important;
+}
+
+body.dark #clearFilters:hover {
+    background: var(--color-primary) !important;
+}

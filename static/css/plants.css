@@ -1,0 +1,1269 @@
+/* Landing Section */
+.plants-landing {
+    min-height: calc(100vh - var(--header-height));
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+                url('/static/images/about.jpg') center/cover;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-4xl) var(--spacing-lg);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.landing-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    z-index: 1;
+    padding-top: var(--spacing-2xl);
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-3xl);
+    animation: fadeInUp 0.8s ease-out 0.4s backwards;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--spacing-xl);
+}
+
+.feature-card {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-2xl);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+.feature-card i {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-xl);
+    background: rgba(255, 255, 255, 0.1);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover i {
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.feature-card i.fa-mortar-pestle {
+    color: #ff9800;
+    text-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+}
+
+.feature-card i.fa-flask {
+    color: #9c27b0;
+    text-shadow: 0 0 20px rgba(156, 39, 176, 0.5);
+}
+
+.feature-card i.fa-leaf {
+    color: #8bc34a;
+    text-shadow: 0 0 20px rgba(139, 195, 74, 0.5);
+}
+
+.feature-card i.fa-shield-alt {
+    color: #f44336;
+    text-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
+}
+
+/* Colorful feature card icons */
+.feature-card i.fa-mortar-pestle {
+    color: #ff9800; /* Orange for traditional uses */
+}
+
+.feature-card i.fa-flask {
+    color: #9c27b0; /* Purple for scientific research */
+}
+
+.feature-card i.fa-leaf {
+    color: #8bc34a; /* Light green for plant identification */
+}
+
+.feature-card i.fa-shield-alt {
+    color: #f44336; /* Red for safety guidelines */
+}
+
+.feature-card h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.feature-card p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.7;
+    font-size: var(--font-size-base);
+    max-width: 280px;
+    margin: 0 auto;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-large {
+    font-size: var(--font-size-lg);
+    padding: var(--spacing-lg) var(--spacing-2xl);
+    border-radius: var(--border-radius-xl);
+    animation: fadeInUp 0.8s ease-out 0.6s backwards;
+}
+
+/* Explorer Section */
+.plants-explorer {
+    display: block;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    background: var(--color-background);
+}
+
+.plants-explorer:not(.active) {
+    display: none;
+    opacity: 0;
+}
+
+.explorer-header {
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+    color: #fff;
+    padding: var(--spacing-2xl) 0;
+    position: sticky;
+    top: var(--header-height);
+    z-index: 100;
+    box-shadow: var(--shadow-lg);
+}
+
+.plants-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.plants-hero h1 {
+    font-size: var(--font-size-5xl);
+    font-weight: 800;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.plants-hero .subtitle {
+    font-size: var(--font-size-xl);
+    opacity: 0.95;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    animation: fadeInUp 0.6s ease-out 0.2s backwards;
+}
+
+/* Search Section */
+.plants-search-bar {
+    background: var(--color-background);
+    padding: var(--spacing-2xl) 0;
+    border-bottom: 1px solid var(--color-gray-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.plants-search-bar.scrolled {
+    padding: var(--spacing-lg) 0;
+    box-shadow: var(--shadow-lg);
+}
+
+.search-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-filters {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: flex-start;
+    margin-bottom: var(--spacing-lg);
+}
+
+.search-input-wrapper {
+    flex: 1;
+}
+
+.search-input-container {
+    position: relative;
+}
+
+.search-suggestions {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-background);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--border-radius-lg);
+    margin-top: var(--spacing-xs);
+    box-shadow: var(--shadow-lg);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.search-suggestions.active {
+    display: block;
+}
+
+.suggestion-item {
+    padding: var(--spacing-md) var(--spacing-lg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.suggestion-item:hover,
+.suggestion-item.selected {
+    background: var(--color-gray-100);
+}
+
+.suggestion-item i {
+    color: var(--color-primary);
+    width: 16px;
+}
+
+.suggestion-type {
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+    margin-left: auto;
+}
+
+.highlight {
+    background-color: rgba(var(--color-primary-rgb), 0.1);
+    color: var(--color-primary);
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+/* Dark mode styles for search suggestions */
+body.dark .search-suggestions {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+}
+
+body.dark .suggestion-item:hover,
+body.dark .suggestion-item.selected {
+    background: var(--color-gray-700);
+}
+
+body.dark .highlight {
+    background-color: rgba(var(--color-primary-light-rgb), 0.2);
+    color: var(--color-primary-light);
+}
+
+.search-icon {
+    position: absolute;
+    left: var(--spacing-lg);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-gray-400);
+    transition: color 0.3s ease;
+}
+
+.plants-search-bar #searchBar {
+    width: 100%;
+    display: block;
+    padding: var(--spacing-lg) var(--spacing-2xl);
+    padding-left: 3.5rem;
+    border: 2px solid var(--color-gray-200);
+    border-radius: var(--border-radius-2xl);
+    font-size: var(--font-size-lg);
+    transition: all 0.3s ease;
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+.filters-wrapper {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.sort-wrapper {
+    position: relative;
+}
+
+.sort-select {
+    appearance: none;
+    background: var(--color-background);
+    border: 2px solid var(--color-gray-200);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-sm) var(--spacing-xl);
+    padding-right: var(--spacing-3xl);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sort-wrapper::after {
+    content: '\\f0d7';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-light);
+    pointer-events: none;
+    transition: transform 0.2s ease;
+}
+
+.sort-select:hover {
+    border-color: var(--color-primary);
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.1);
+}
+
+/* Dark mode styles for sort select */
+body.dark .sort-select {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    color: var(--color-text-light);
+}
+
+body.dark .sort-select:hover {
+    border-color: var(--color-primary-light);
+}
+
+body.dark .sort-select:focus {
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-light-rgb), 0.15);
+}
+
+.active-filters {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.filter-tag {
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-lg);
+    font-size: var(--font-size-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    transition: all 0.2s ease;
+}
+
+.filter-tag button {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.filter-tag button:hover {
+    opacity: 1;
+}
+
+.filter-panel {
+    background: var(--color-background);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-lg);
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    width: max-content;
+    min-width: 300px;
+    max-width: calc(100vw - 2rem);
+    top: 100%; /* Default position below */
+    margin-top: var(--spacing-md);
+}
+
+.filter-panel.active {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.filter-panel.up {
+    bottom: 100%;
+    top: auto;
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+}
+
+.filter-section h3 {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text);
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-md);
+    transition: background-color 0.2s ease;
+}
+
+.filter-option:hover {
+    background-color: var(--color-gray-100);
+}
+
+.filter-option input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--color-gray-300);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.filter-option input[type="checkbox"]:checked {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.filter-option input[type="checkbox"]:checked::after {
+    content: '\\2714';
+    font-size: 12px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.filter-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-gray-200);
+}
+
+.plants-search-bar #searchBar:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.1);
+    transform: translateY(-1px);
+}
+
+.search-icon {
+    position: absolute;
+    left: var(--spacing-lg);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-gray-400);
+    transition: color 0.3s ease;
+}
+
+.plants-search-bar #searchBar:focus + .search-icon {
+    color: var(--color-primary);
+}
+
+.plants-search-bar .result-count {
+    display: block;
+    text-align: center;
+    margin-top: var(--spacing-md);
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Plants Grid Section */
+.plants-listing {
+    background: var(--color-gray-50);
+    padding: var(--spacing-3xl) 0;
+    min-height: 60vh;
+}
+
+.plants-grid,
+.plants-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+    padding: var(--spacing-xl);
+    max-width: 1600px;
+    margin: 0 auto;
+    align-items: stretch;
+}
+
+.plant-card {
+    background: var(--color-background);
+    border-radius: var(--border-radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.6s ease-out;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 400px;
+    cursor: pointer;
+}
+
+.plant-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-2xl);
+}
+
+.plant-card:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-primary), var(--shadow-2xl);
+    transform: translateY(-6px);
+}
+
+.plant-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.02) 100%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.plant-card:hover::after {
+    opacity: 1;
+}
+
+.plant-image-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    border-bottom: 2px solid rgba(var(--color-primary-rgb), 0.1);
+    background: var(--color-gray-100);
+}
+
+.plant-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--color-gray-100);
+    will-change: transform;
+}
+
+.plant-card:hover .plant-image {
+    transform: scale(1.08);
+}
+
+.card-content {
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    flex: 1;
+    overflow: hidden;
+}
+
+.plant-name {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.3;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.plant-name i {
+    color: #8bc34a; /* Light green for plant leaf icon */
+}
+
+.sci-name {
+    font-size: var(--font-size-base);
+    font-style: italic;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--color-gray-200);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.sci-name i {
+    color: #9c27b0; /* Purple for scientific flask icon */
+    font-size: 0.9em;
+}
+
+.plant-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    flex: 1;
+}
+
+.plant-details .info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--spacing-sm);
+    align-items: start;
+    line-height: 1.5;
+}
+
+.plant-details .info .label {
+    font-weight: 500;
+    color: var(--color-text-light);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    white-space: nowrap;
+}
+
+.plant-details .info .label i {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+/* Colorful icons for different categories */
+.plant-details .info .label i.fa-capsules {
+    color: #e91e63; /* Pink for medicinal uses */
+}
+
+.plant-details .info .label i.fa-info-circle {
+    color: #2196f3; /* Blue for description */
+}
+
+.plant-details .info .label i.fa-globe-asia {
+    color: #4caf50; /* Green for habitat */
+}
+
+.plant-details .info .label i.fa-leaf {
+    color: #8bc34a; /* Light green for plant name */
+}
+
+.plant-details .info .label i.fa-flask {
+    color: #9c27b0; /* Purple for scientific name */
+}
+
+.plant-details .info .label i.fa-mortar-pestle {
+    color: #ff9800; /* Orange for preparation */
+}
+
+.plant-details .info .label i.fa-exclamation-triangle {
+    color: #f44336; /* Red for precautions */
+}
+
+.plant-details .info .label i.fa-map-marker-alt {
+    color: #3f51b5; /* Indigo for region */
+}
+
+.plant-details .info:not(:last-child) {
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px dashed var(--color-gray-200);
+}
+
+/* Truncate long text with ellipsis */
+.plant-details .info > :last-child {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-clamp: 2;
+}
+
+/* Add subtle hover effect for details */
+.plant-card:hover .info .label i {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Loading State */
+.plants-loading {
+    text-align: center;
+    padding: var(--spacing-3xl);
+    color: var(--color-text-light);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto var(--spacing-lg);
+    border: 3px solid var(--color-gray-200);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Dark mode adjustments */
+/* Dark Mode Styles */
+body.dark .plants-search-bar {
+    background: rgba(var(--color-gray-900-rgb), 0.9);
+    border-bottom-color: var(--color-gray-800);
+    backdrop-filter: blur(12px) saturate(180%);
+}
+
+body.dark .plants-listing {
+    background: var(--color-gray-900);
+}
+
+body.dark .plant-card {
+    background: var(--color-gray-800);
+    box-shadow: var(--shadow-lg);
+}
+
+body.dark .plant-card:hover {
+    box-shadow: var(--shadow-2xl), 0 0 20px 5px rgba(var(--color-primary-rgb), 0.1);
+}
+
+body.dark .plant-card:focus {
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.5), var(--shadow-2xl);
+}
+
+body.dark #searchBar {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+    color: var(--color-text-light);
+}
+
+body.dark #searchBar:focus {
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 4px rgba(var(--color-primary-light-rgb), 0.15);
+}
+
+/* Dark mode styles for filter system */
+body.dark .filter-panel {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+}
+
+body.dark .filter-option:hover {
+    background-color: var(--color-gray-700);
+}
+
+body.dark .filter-option input[type="checkbox"] {
+    border-color: var(--color-gray-600);
+}
+
+body.dark .filter-actions {
+    border-top-color: var(--color-gray-700);
+}
+
+body.dark .filter-tag {
+    background: rgba(var(--color-primary-rgb), 0.2);
+    color: var(--color-primary-light);
+}
+
+body.dark .filter-section h3 {
+    color: var(--color-text-light);
+}
+
+body.dark .sci-name {
+    border-bottom-color: var(--color-gray-700);
+}
+
+body.dark .plant-details .info:not(:last-child) {
+    border-bottom-color: var(--color-gray-700);
+}
+
+body.dark .plant-image.loading {
+    background: linear-gradient(90deg,
+        var(--color-gray-800) 0%,
+        var(--color-gray-700) 50%,
+        var(--color-gray-800) 100%);
+}
+
+body.dark .plant-image.error {
+    background: var(--color-gray-800);
+    color: var(--color-gray-600);
+}
+
+/* Smooth transitions for theme changes */
+.plant-card,
+.plant-image-container,
+.card-content,
+.plant-name,
+.sci-name,
+.plant-details,
+#searchBar {
+    transition: all 0.3s ease;
+}
+
+/* Responsive Design */
+/* Loading animation for images */
+.plant-image.loading {
+    background: linear-gradient(90deg,
+        var(--color-gray-100) 0%,
+        var(--color-gray-200) 50%,
+        var(--color-gray-100) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Error state for failed images */
+.plant-image.error {
+    background: var(--color-gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-400);
+    font-size: var(--font-size-sm);
+    opacity: 0.7;
+}
+
+/* Dark mode adjustments for loading and error states */
+body.dark .plant-image.loading {
+    background: linear-gradient(90deg,
+        var(--color-gray-800) 0%,
+        var(--color-gray-700) 50%,
+        var(--color-gray-800) 100%);
+}
+
+body.dark .plant-image.error {
+    background: var(--color-gray-800);
+    color: var(--color-gray-600);
+}
+
+.plant-image-container:hover .plant-image {
+    transform: scale(1.05);
+}
+
+/* Ensure error/fallback images also scale on hover to match other images.
+   Keep their visual indication (opacity/background) but allow transform. */
+.plant-image.error {
+    background: var(--color-gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-400);
+    font-size: var(--font-size-sm);
+    opacity: 0.7;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    will-change: transform, opacity;
+}
+
+.plant-image-container:hover .plant-image.error {
+    transform: scale(1.05);
+    opacity: 0.95; /* slightly increase opacity on hover for better visual feedback */
+}
+
+.plant-image.error::before {
+    content: '\\f03e';
+    font-family: 'Font Awesome 5 Free';
+    font-size: 2rem;
+    opacity: 0.5;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .plants-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: var(--spacing-xl);
+    }
+}
+
+@media (max-width: 768px) {
+    .plants-landing {
+        padding: var(--spacing-2xl) var(--spacing-lg);
+    }
+
+    .plants-landing h1 {
+        font-size: var(--font-size-4xl);
+    }
+
+    .plants-landing .hero-text {
+        font-size: var(--font-size-xl);
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+        margin: 0 var(--spacing-lg) var(--spacing-2xl);
+    }
+
+    .feature-card {
+        padding: var(--spacing-lg);
+    }
+
+    .btn-large {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .plants-search-bar {
+        padding: var(--spacing-xl) var(--spacing-lg);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(8px);
+    }
+
+    .plants-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        padding: var(--spacing-md);
+        gap: var(--spacing-lg);
+    }
+
+    .card-content {
+        padding: var(--spacing-lg);
+    }
+
+    .plant-name {
+        font-size: var(--font-size-lg);
+    }
+}
+
+@media (max-width: 480px) {
+    .plants-grid,
+    .plants-container {
+        grid-template-columns: 1fr;
+        padding: var(--spacing-sm);
+        gap: var(--spacing-lg);
+    }
+
+    .plant-image-container {
+        height: 180px;
+    }
+
+    .plant-card {
+        min-height: 350px;
+    }
+
+    .plants-hero h1 {
+        font-size: var(--font-size-3xl);
+    }
+
+    .plants-hero .subtitle {
+        font-size: var(--font-size-base);
+    }
+
+    .plant-details .info {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content {
+        padding: 1rem;
+    }
+
+    .suggest-plant-form {
+        gap: 1rem;
+    }
+}
+
+/* Suggest Plant Form Styles */
+.btn-secondary {
+    background-color: var(--color-text-light);
+    color: var(--color-white);
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-gray-800);
+}
+
+.suggest-plant-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.suggest-plant-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.suggest-plant-form label {
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.suggest-plant-form input[type="text"],
+.suggest-plant-form textarea {
+    padding: 0.75rem;
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--border-radius-md);
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    background: var(--color-white);
+    color: var(--color-text);
+    transition: all 0.3s ease;
+}
+
+.suggest-plant-form input[type="text"]:focus,
+.suggest-plant-form textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.1);
+    outline: none;
+}
+
+.suggest-plant-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.suggest-plant-form input[type="file"] {
+    padding: 0.5rem;
+    border: 1px dashed var(--color-gray-300);
+    border-radius: var(--border-radius-md);
+    background: var(--color-gray-50);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.suggest-plant-form input[type="file"]:hover {
+    border-color: var(--color-primary);
+    background: rgba(var(--color-primary-rgb), 0.05);
+}
+
+.image-preview {
+    margin-top: 1rem;
+    max-width: 200px;
+    max-height: 200px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    display: none;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.form-status {
+    padding: 1rem;
+    border-radius: var(--border-radius-md);
+    margin-top: 1rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.form-status.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.form-status.success {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--color-success);
+}
+
+.form-status.error {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: var(--color-danger);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--color-white);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.modal.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-text-light);
+    transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+    color: var(--color-text);
+}
+
+/* Dark Mode Styles */
+body.dark .modal-content {
+    background-color: var(--color-gray-800);
+}
+
+body.dark .suggest-plant-form input[type="text"],
+body.dark .suggest-plant-form textarea {
+    background-color: var(--color-gray-700);
+    border-color: var(--color-gray-600);
+    color: var(--color-white);
+}
+
+body.dark .suggest-plant-form input[type="text"]:focus,
+body.dark .suggest-plant-form textarea:focus {
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-light-rgb), 0.2);
+}
+
+body.dark .suggest-plant-form input[type="file"] {
+    background-color: var(--color-gray-700);
+    border-color: var(--color-gray-600);
+    color: var(--color-white);
+}
+
+body.dark .suggest-plant-form input[type="file"]:hover {
+    border-color: var(--color-primary-light);
+    background: rgba(var(--color-primary-light-rgb), 0.1);
+}
+
+body.dark .form-status.success {
+    background-color: rgba(76, 175, 80, 0.2);
+}
+
+body.dark .form-status.error {
+    background-color: rgba(244, 67, 54, 0.2);
+}
+
+

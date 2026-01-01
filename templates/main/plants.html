@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2e7d32" />
+  <title>Plants - Medicinal Plants DB</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/plants.css') }}" />
+</head>
+
+<body>
+  <div id="menu-overlay" class="menu-overlay"></div>
+  <header>
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
+      <div class="nav-title">
+        <i class="fas fa-leaf" aria-hidden="true"></i>
+        <span>Medicinal Plants Database</span>
+      </div>
+      <div class="theme-controls">
+        <label class="switch" title="Toggle dark and light mode">
+          <input type="checkbox" id="theme-toggle" aria-label="Switch between dark and light mode">
+          <span class="slider"><span class="icon">🌙</span></span>
+        </label>
+      </div>
+      <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="nav-menu"
+        aria-label="Toggle navigation menu">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+      <ul id="nav-menu" class="nav-links">
+        <li><a href="{{ url_for('index') }}#top"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="{{ url_for('index') }}#about"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="{{ url_for('index') }}#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="#top" class="active"><i class="fas fa-seedling"></i> Plants</a></li>
+        <li><a href="{{ url_for('search_page') }}"><i class="fas fa-search"></i> Search</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="plants-landing">
+      <div class="landing-content">
+        <div class="feature-grid">
+          <div class="feature-card">
+            <i class="fas fa-mortar-pestle"></i>
+            <h3>Traditional Uses</h3>
+            <p>Learn about ancient healing practices and traditional medicinal applications.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-flask"></i>
+            <h3>Scientific Research</h3>
+            <p>Access scientific names and research-backed medicinal properties.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-leaf"></i>
+            <h3>Plant Identification</h3>
+            <p>High-quality images and detailed descriptions for proper identification.</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Safety Guidelines</h3>
+            <p>Important precautions and proper usage recommendations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="plants-listing">
+      <div class="section-container">
+        <div class="loading-indicator">
+          <div class="spinner"></div><span>Loading plants...</span>
+        </div>
+        <div id="plantsContainer" class="plants-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- Plant Details Section -->
+    <section class="plant-details" id="plantDetails">
+
+      <div class="plant-details-content">
+        <div class="plant-details-main">
+          <div class="plant-image-wrapper">
+            <img id="plantDetailImage" src="" alt="" class="plant-image-large">
+          </div>
+          <div class="plant-info">
+            <h2 id="plantDetailName"></h2>
+            <p id="plantDetailScientificName" class="scientific-name"></p>
+
+            <div class="info-section description">
+              <p id="plantDetailDescription"></p>
+            </div>
+
+            <div class="info-grid">
+              <div class="info-section">
+                <p id="plantDetailUses"></p>
+              </div>
+
+              <div class="info-section">
+                <p id="plantDetailParts"></p>
+              </div>
+
+              <div class="info-section">
+                <p id="plantDetailPreparation"></p>
+              </div>
+
+              <div class="info-section">
+                <p id="plantDetailHabitat"></p>
+              </div>
+
+              <div class="info-section">
+                <p id="plantDetailRegion"></p>
+              </div>
+            </div>
+
+            <div class="info-section warning">
+              <p id="plantDetailPrecautions"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-plants">
+          <div id="relatedPlantsContainer" class="related-plants-grid"></div>
+        </div>
+      </div>
+      </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-branding"><i class="fas fa-leaf"></i><span>Medicinal Plants Database</span></div>
+      <p class="copyright">&copy; 2025 All Rights Reserved</p>
+      <div class="footer-disclaimer"><i class="fas fa-exclamation-triangle"></i><span>Information is for educational
+          purposes only.</span></div>
+    </div>
+  </footer>
+
+  <template id="plant-card-template">
+    <article class="plant-card" tabindex="0">
+      <div class="plant-image-container">
+        <img class="plant-image" src="" alt="" />
+      </div>
+      <div class="card-content">
+        <h3 class="plant-name"></h3>
+        <div class="sci-name"></div>
+        <div class="plant-details"></div>
+      </div>
+    </article>
+  </template>
+
+  <script>
+    const defaultImage = '/static/images/default_plant.jpg';
+    const imageUrl = plant.image_url ||
+      `/static/images/${plant.common_name?.toLowerCase().replace(/[\s-+]/g, '_')}.jpg` ||
+      defaultImage;
+  </script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=3"></script>
+</body>
+
+</html>

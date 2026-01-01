@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin login for Medicinal Plants Database">
+    <title>Admin Login - Medicinal Plants DB</title>
+    
+    <!-- Favicon -->
+    
+    
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 5rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 0.75rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--border-radius-md);
+        }
+        
+        .login-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .message {
+            padding: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-radius: var(--border-radius-md);
+            text-align: center;
+        }
+        
+        .message.error {
+            background-color: rgba(229, 57, 53, 0.1);
+            color: var(--color-danger);
+            border: 1px solid rgba(229, 57, 53, 0.3);
+        }
+        
+        .message.success {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--color-success);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .home-link {
+            font-size: 0.9rem;
+        }
+        
+        body.dark .login-container {
+            background-color: var(--color-gray-100);
+        }
+        
+        .login-footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+    </style>
+</head>
+
+<body>
+    <main id="main-content">
+        <div class="login-container">
+            <div class="login-header">
+                <i class="fas fa-leaf fa-3x" style="color: var(--color-primary);" aria-hidden="true"></i>
+                <h1>Admin Login</h1>
+                <p>Please enter your credentials to access the admin panel</p>
+            </div>
+            
+                        <div id="flashed-messages" style="display:none;">{{ flashed_messages_json | safe }}</div>
+            
+            <form id="login-form" class="login-form" method="POST" action="/login">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required autofocus>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="login-actions">
+                    <a href="/" class="home-link">Back to Home</a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-sign-in-alt" aria-hidden="true"></i> Login
+                    </button>
+                </div>
+            </form>
+            
+            <div class="login-footer">
+                <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+                <p>Medicinal Plants Database Admin Panel</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle dark mode
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme');
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.body.classList.add('dark');
+            }
+        });
+    </script>
+</body>
+</html>

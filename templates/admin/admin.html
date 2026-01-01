@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Medicinal Plants DB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">🌿 Medicinal Plants Admin</div>
+                <nav class="nav-menu">
+                    <a href="#dashboard" class="nav-link">📊 Dashboard</a>
+                    <a href="#plants" class="nav-link">🌱 Plants</a>
+                    <a href="{{ url_for('admin_images') }}" class="nav-link">📸 Images</a>
+                    <a href="#users" class="nav-link">👥 Users</a>
+                    <div class="notifications-dropdown">
+                        <button class="notifications-btn" id="notificationsBtn">
+                            🔔 <span class="notification-count" id="notificationCount">0</span>
+                        </button>
+                        <div class="notifications-content" id="notificationsPanel">
+                            <div class="notifications-header">
+                                <h3>Notifications</h3>
+                                <button class="mark-all-read">Mark All Read</button>
+                            </div>
+                            <div class="notifications-list" id="notificationsList">
+                                <!-- Notifications will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('logout') }}" class="logout-btn">🚪 Logout</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <section class="section" id="dashboard">
+            <h2 class="section-title">📊 Dashboard Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-title">🌱 Total Plants</div>
+                    <div class="stat-value" id="totalPlants">0</div>
+                    <div class="stat-trend" id="plantsGrowth">+0% this month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">👥 Total Users</div>
+                    <div class="stat-value" id="totalUsers">0</div>
+                    <div class="stat-trend" id="usersGrowth">+0% this month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">👤 Active Users</div>
+                    <div class="stat-value" id="activeUsers">0</div>
+                    <div class="stat-subtitle">In the last 24 hours</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">� System Health</div>
+                    <div class="stat-value" id="systemHealth">100%</div>
+                    <div class="stat-subtitle">Database & Server Status</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">🔍 Recent Searches</div>
+                    <div class="stat-value" id="recentSearches">0</div>
+                    <div class="stat-subtitle">Last 7 days</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">📱 Platform Usage</div>
+                    <div class="stat-value" id="platformUsage">
+                        <div class="usage-bar">
+                            <div class="desktop" style="width: 60%">Desktop: 60%</div>
+                            <div class="mobile" style="width: 40%">Mobile: 40%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions Section -->
+            <div class="quick-actions">
+                <h3 class="section-subtitle">Quick Actions</h3>
+                <div class="action-buttons">
+                    <button class="action-btn" id="addPlantBtn">
+                        <span class="icon">🌿</span>
+                        Add Plant
+                    </button>
+                    <button class="action-btn" id="addUserBtn">
+                        <span class="icon">👤</span>
+                        Add User
+                    </button>
+                    <button class="action-btn" id="generateReportBtn">
+                        <span class="icon">📊</span>
+                        Generate Report
+                    </button>
+                    <button class="action-btn" id="backupBtn">
+                        <span class="icon">💾</span>
+                        Backup Data
+                    </button>
+                </div>
+                <div class="export-section">
+                    <h3 class="section-subtitle">Export Data</h3>
+                    <div class="export-buttons">
+                        <div class="export-group">
+                            <label>Plants Data:</label>
+                            <button class="export-btn" id="exportPlantsCSV">
+                                <span class="icon">📄</span> CSV
+                            </button>
+                            <button class="export-btn" id="exportPlantsJSON">
+                                <span class="icon">📄</span> JSON
+                            </button>
+                        </div>
+                        <div class="export-group">
+                            <label>Users Data:</label>
+                            <button class="export-btn" id="exportUsersCSV">
+                                <span class="icon">📄</span> CSV
+                            </button>
+                            <button class="export-btn" id="exportUsersJSON">
+                                <span class="icon">📄</span> JSON
+                            </button>
+                        </div>
+                        <div class="export-group">
+                            <label>System Logs:</label>
+                            <button class="export-btn" id="exportLogsCSV">
+                                <span class="icon">📄</span> CSV
+                            </button>
+                            <button class="export-btn" id="exportLogsJSON">
+                                <span class="icon">📄</span> JSON
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="plants">
+            <h2 class="section-title">🌱 Plants Management</h2>
+            <div class="table-actions">
+                <button class="btn btn-primary">➕ Add New Plant</button>
+                <div class="search-filter">
+                    <input type="text" id="plantsSearch" placeholder="Search plants..." class="search-input">
+                    <select id="plantsCategoryFilter" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="herb">Herbs</option>
+                        <option value="tree">Trees</option>
+                        <option value="shrub">Shrubs</option>
+                        <option value="climber">Climbers</option>
+                        <option value="other">Others</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Scientific Name</th>
+                            <th>Added Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="plantsTableBody">
+                        <!-- Plants will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section" id="users">
+            <h2 class="section-title">👥 Users Management</h2>
+            <div class="table-actions">
+                <button class="btn btn-primary">➕ Add New User</button>
+                <div class="search-filter">
+                    <input type="text" id="usersSearch" placeholder="Search users..." class="search-input">
+                    <select id="usersRoleFilter" class="filter-select">
+                        <option value="">All Roles</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <!-- Users will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">📈 Activity Charts</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <canvas id="visitsChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="plantStatsChart"></canvas>
+                </div>
+                <div class="chart-container full-width">
+                    <canvas id="categoryTrendsChart"></canvas>
+                </div>
+                <div class="chart-container full-width">
+                    <canvas id="medicinalUsesChart"></canvas>
+                </div>
+                <div class="chart-container full-width map-container">
+                    <h3 class="chart-title">Plant Distribution by Region</h3>
+                    <div id="regionMap"></div>
+                </div>
+                <div class="comparative-analytics">
+                    <h3 class="section-subtitle">Growth Comparison</h3>
+                    <div class="chart-row">
+                        <div class="chart-container">
+                            <canvas id="monthlyGrowthChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="yearlyGrowthChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="userAnalytics">
+            <h2 class="section-title">📊 User Analytics</h2>
+            <div class="analytics-overview">
+                <div class="user-metrics-grid">
+                    <div class="metric-card">
+                        <h4>Active Sessions</h4>
+                        <div class="metric-value" id="activeSessionsValue">0</div>
+                        <div class="metric-trend" id="activeSessionsTrend"></div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Average Session Duration</h4>
+                        <div class="metric-value" id="avgSessionDurationValue">0 min</div>
+                        <div class="metric-trend" id="avgSessionDurationTrend"></div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Page Views Today</h4>
+                        <div class="metric-value" id="pageViewsValue">0</div>
+                        <div class="metric-trend" id="pageViewsTrend"></div>
+                    </div>
+                </div>
+                
+                <div class="chart-row">
+                    <div class="chart-container">
+                        <h3 class="chart-title">User Activity Timeline</h3>
+                        <canvas id="userActivityChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3 class="chart-title">Activity Heatmap</h3>
+                        <div id="activityHeatmap"></div>
+                    </div>
+                </div>
+
+                <div class="chart-row">
+                    <div class="chart-container">
+                        <h3 class="chart-title">Popular Search Terms</h3>
+                        <canvas id="searchTermsChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3 class="chart-title">User Engagement</h3>
+                        <canvas id="userEngagementChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="activity-timeline">
+                    <h3 class="section-subtitle">Recent Activity</h3>
+                    <div class="timeline" id="userTimeline">
+                        <!-- Timeline items will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="user-stats-grid">
+                    <div class="stat-box">
+                        <h4>Most Active Users</h4>
+                        <div class="user-list" id="activeUsersList"></div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>Recent Registrations</h4>
+                        <div class="user-list" id="recentUsersList"></div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>Search Analytics</h4>
+                        <div class="search-stats" id="searchStatsList"></div>
+                    </div>
+                    <div class="stat-box">
+                        <h4>User Retention</h4>
+                        <div id="retentionMetrics"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="systemHealth">
+            <h2 class="section-title">🔧 System Health</h2>
+            <div class="system-metrics">
+                <div class="metric-card">
+                    <h3>Error Rate</h3>
+                    <div class="metric-value" id="errorRate">0%</div>
+                    <div class="metric-trend" id="errorTrend"></div>
+                </div>
+                <div class="metric-card">
+                    <h3>Response Time</h3>
+                    <div class="metric-value" id="responseTime">0ms</div>
+                    <div class="metric-trend" id="responseTrend"></div>
+                </div>
+                <div class="metric-card">
+                    <h3>Database Size</h3>
+                    <div class="metric-value" id="dbSize">0 MB</div>
+                    <div class="metric-trend" id="dbTrend"></div>
+                </div>
+            </div>
+
+            <div class="error-logs">
+                <h3 class="section-subtitle">Recent Errors</h3>
+                <div class="error-list" id="errorList">
+                    <!-- Error logs will be loaded here -->
+                </div>
+            </div>
+
+            <div class="system-actions">
+                <button class="action-btn" id="clearErrorLogsBtn">
+                    <span class="icon">🧹</span> Clear Error Logs
+                </button>
+                <button class="action-btn" id="optimizeDbBtn">
+                    <span class="icon">⚡</span> Optimize Database
+                </button>
+                <button class="action-btn" id="testSystemBtn">
+                    <span class="icon">🔍</span> Run System Test
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Plant Modal -->
+    <div id="plantModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="plantModalTitle">Add Plant</h2>
+            <form id="plantForm">
+                <input type="hidden" id="plantId">
+                <div class="form-group">
+                    <label for="commonName">Common Name</label>
+                    <input type="text" id="commonName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="scientificName">Scientific Name</label>
+                    <input type="text" id="scientificName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="medicinalUses">Medicinal Uses</label>
+                    <textarea id="medicinalUses" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="imageUrl">Image URL</label>
+                    <input type="text" id="imageUrl" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">💾 Save Plant</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Modal -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="userModalTitle">Add User</h2>
+            <form id="userForm">
+                <input type="hidden" id="userId">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="isAdmin">Admin</label>
+                    <input type="checkbox" id="isAdmin">
+                </div>
+                <button type="submit" class="btn btn-primary">💾 Save User</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/growth-analytics.js') }}"></script>
+</body>
+</html>

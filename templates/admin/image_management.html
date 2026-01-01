@@ -1,0 +1,173 @@
+{% extends "admin/admin.html" %}
+
+{% block title %}Image Management - Admin{% endblock %}
+
+{% block content %}
+<div class="admin-content">
+    <div class="content-header">
+        <h1>Image Management</h1>
+        <div class="actions">
+            <button class="btn btn-primary" onclick="document.getElementById('uploadForm').style.display='block'">
+                <i class="fas fa-upload"></i> Upload New Images
+            </button>
+        </div>
+    </div>
+
+    <!-- Upload Form -->
+    <div id="uploadForm" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('uploadForm').style.display='none'">&times;</span>
+            <h2>Upload Plant Images</h2>
+            <form action="{{ url_for('admin_upload_images') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="plantImages">Select Images:</label>
+                    <input type="file" id="plantImages" name="images" multiple accept="image/*" required>
+                    <small class="form-text text-muted">You can select multiple images. Supported formats: JPG, PNG</small>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('uploadForm').style.display='none'">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Image Grid -->
+    <div class="image-grid">
+        {% for image in images %}
+        <div class="image-card">
+            <img src="{{ image.url }}" alt="{{ image.name }}">
+            <div class="image-info">
+                <p>{{ image.name }}</p>
+                <div class="image-actions">
+                    <button class="btn btn-sm btn-primary" onclick="assignPlant('{{ image.name }}')">
+                        <i class="fas fa-link"></i> Assign
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteImage('{{ image.name }}')">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Assign Image Modal -->
+    <div id="assignModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('assignModal').style.display='none'">&times;</span>
+            <h2>Assign Image to Plant</h2>
+            <form id="assignForm" action="{{ url_for('admin_assign_image') }}" method="POST">
+                <input type="hidden" id="imageNameInput" name="image_name">
+                <div class="form-group">
+                    <label for="plantSelect">Select Plant:</label>
+                    <select id="plantSelect" name="plant_id" required>
+                        {% for plant in plants %}
+                        <option value="{{ plant.id }}">{{ plant.common_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Assign</button>
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('assignModal').style.display='none'">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.image-card {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--surface-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.image-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.image-info {
+    padding: 0.5rem;
+}
+
+.image-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background: var(--surface-color);
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+</style>
+
+<script>
+function assignPlant(imageName) {
+    document.getElementById('imageNameInput').value = imageName;
+    document.getElementById('assignModal').style.display = 'block';
+}
+
+function deleteImage(imageName) {
+    if (confirm('Are you sure you want to delete this image?')) {
+        fetch('/admin/images/' + encodeURIComponent(imageName), {
+            method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error deleting image: ' + data.error);
+            }
+        })
+        .catch(error => {
+            alert('Error: ' + error.message);
+        });
+    }
+}
+
+// Close modals when clicking outside
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}
