@@ -11,6 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 import secrets
 from werkzeug.utils import secure_filename
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # Database models
 db = SQLAlchemy()
@@ -38,6 +39,7 @@ SETTINGS_LOCK = threading.Lock()
 
 def create_app():
     app = Flask(__name__)
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
     
     # Configuration
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-change-this')
