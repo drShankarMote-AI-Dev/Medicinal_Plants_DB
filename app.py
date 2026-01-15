@@ -27,9 +27,12 @@ class User(db.Model):
         return '<User %r>' % self.username
 
 # Configuration
-USERS_FILE = 'config/users.json'
-SETTINGS_FILE = 'config/admin_settings.json'
-LOG_FILE = 'config/logs.json'
+# Configuration
+WRITABLE_DIR = '/tmp' if os.environ.get('VERCEL') else '.'
+
+USERS_FILE = os.path.join(WRITABLE_DIR, 'users.json')
+SETTINGS_FILE = os.path.join(WRITABLE_DIR, 'admin_settings.json')
+LOG_FILE = os.path.join(WRITABLE_DIR, 'logs.json')
 USERS_LOCK = threading.Lock()
 SETTINGS_LOCK = threading.Lock()
 
@@ -40,7 +43,11 @@ def create_app():
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-change-this')
     
     # Use absolute path for database
-    db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'instance', 'medicinal_plants.db')
+    if os.environ.get('VERCEL'):
+        db_path = os.path.join(WRITABLE_DIR, 'medicinal_plants.db')
+    else:
+        db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'instance', 'medicinal_plants.db')
+    
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', f'sqlite:///{db_path}')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
@@ -58,10 +65,11 @@ def create_app():
     
     # Create database tables and directories
     with app.app_context():
-        if not os.path.exists('config'):
-            os.makedirs('config')
-        if not os.path.exists('instance'):
-            os.makedirs('instance')
+        if not os.environ.get('VERCEL'):
+            if not os.path.exists('config'):
+                os.makedirs('config')
+            if not os.path.exists('instance'):
+                os.makedirs('instance')
         db.create_all()
         
         # Ensure admin user exists and has correct password
@@ -117,7 +125,7 @@ def create_app():
     
     def log_action(action, user=None, details=None):
         """Log user actions"""
-        if not os.path.exists('config'):
+        if not os.environ.get('VERCEL') and not os.path.exists('config'):
             os.makedirs('config')
         
         log_entry = {
