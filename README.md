@@ -43,7 +43,7 @@ A modern, accessible web application that provides comprehensive information abo
 - **Database**: SQLite (with SQLAlchemy ORM)
 - **Icons**: Font Awesome
 - **Fonts**: Montserrat, Roboto (Google Fonts)
-- **Deployment**: Docker, Gunicorn
+- **Deployment**: Docker, Vercel (Serverless)
 
 ## 📋 Prerequisites
 
@@ -140,6 +140,23 @@ Visit `http://127.0.0.1:5000` in your browser. Default admin credentials: `admin
 
 The application will be available at `http://localhost:5000`
 
+## ☁️ Vercel Deployment
+
+This application is configured for deployment on Vercel Serverless Functions.
+
+### Deployment Steps
+
+1. **Push to GitHub**: Ensure your code is pushed to a GitHub repository.
+2. **Import Project**: Go to [Vercel](https://vercel.com/) and import your repository.
+3. **Configuration**: Vercel will automatically detect the configuration from `vercel.json`.
+4. **Deploy**: Click deploy!
+
+### Important Notes for Vercel
+
+*   **Read-Only Filesystem**: Vercel's serverless environment is read-only, except for the `/tmp` directory.
+*   **Database**: The SQLite database will be created in `/tmp/medicinal_plants.db` on startup. **Note:** Data stored here is ephemeral and will be lost when the function restarts. For persistent data in production, connect to an external database (e.g., Vercel Postgres, MongoDB, Supabase).
+*   **Static Files**: Handled via WhiteNoise to ensure correct serving in the serverless environment.
+
 ## 📁 Project Structure
 
 ```
@@ -149,6 +166,7 @@ medicinal-plants-db/
 ├── requirements.txt            # Python dependencies
 ├── Dockerfile                  # Docker configuration
 ├── .gitignore                  # Git ignore rules
+├── vercel.json                 # Vercel deployment config
 ├── README.md                   # This file
 ├── config/                     # Configuration files (gitignored)
 │   ├── admin_config.json       # Admin user configuration
